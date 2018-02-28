@@ -1,4 +1,4 @@
-package hackerrank.algorithms.javaLanguage;
+package hackerrank.algorithms.javaLanguage.dataStructures;
 
 import java.util.HashMap;
 import java.util.Map;

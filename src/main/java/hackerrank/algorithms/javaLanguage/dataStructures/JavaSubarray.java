@@ -1,4 +1,4 @@
-package hackerrank.algorithms.javaLanguage;
+package hackerrank.algorithms.javaLanguage.dataStructures;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.IntStream;

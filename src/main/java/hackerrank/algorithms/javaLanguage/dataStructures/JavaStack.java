@@ -8,27 +8,29 @@ public class JavaStack {
     public static void main(String[] argh) {
         Scanner sc = new Scanner(System.in);
 
-            String input = "}{";
-            Stack stack = new Stack();
-            input.chars()
-                    .mapToObj(i -> (char) i)
-                    .map(el -> Character.toString(el))
-                    .forEach(el -> checkIfPreviousTheSame(stack, el));
-            System.out.println(stack.empty());
+        String input = "}{";
+        Stack stack = new Stack();
+        input.chars()
+                .mapToObj(i -> (char) i)
+                .map(el -> Character.toString(el))
+                .forEach(el -> checkIfPreviousTheSame(stack, el));
+        System.out.println(stack.empty());
     }
 
-    private static void checkIfPreviousTheSame(Stack stack, String el) {
-        String revertedEl = revert(el);
-        if (!stack.isEmpty() && revert((String) stack.peek()).equals(el)) {
+    private static void checkIfPreviousTheSame(Stack stack, String right) {
+        String revertedEl = revert(right);
+        if (!stack.isEmpty()
+                && stack.peek().equals(revertedEl)
+                && (stack.peek().equals("(") || stack.peek().equals("[") || stack.peek().equals("{"))) {
             stack.pop();
         } else {
-            stack.push(el);
+            stack.push(right);
         }
     }
 
     private static String revert(String el) {
         switch (el) {
-            case  "(":
+            case "(":
                 return ")";
             case ")":
                 return "(";
