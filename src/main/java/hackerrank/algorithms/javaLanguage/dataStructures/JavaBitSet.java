@@ -26,22 +26,34 @@ public class JavaBitSet {
     private static void parseOperation(BitSet first, BitSet second, String op, int s1, int s2) {
         switch (op) {
             case "AND":
-                first.and(second);
+                if (s1 == 1)
+                    first.and(second);
+                else
+                    second.and(first);
                 break;
             case "SET":
-                if (s1 ==1)
+                if (s1 == 1)
                     first.set(s2);
                 else
                     second.set(s2);
                 break;
             case "FLIP":
-                if (s1 ==1)
+                if (s1 == 1)
                     first.flip(s2);
                 else
                     second.flip(s2);
                 break;
             case "OR":
-                second.or(first);
+                if (s1 == 1)
+                    first.or(second);
+                else
+                    second.or(first);
+                break;
+            case "XOR":
+                if (s1 == 1)
+                    first.xor(second);
+                else
+                    second.xor(first);
                 break;
             default:
                 throw new RuntimeException();
