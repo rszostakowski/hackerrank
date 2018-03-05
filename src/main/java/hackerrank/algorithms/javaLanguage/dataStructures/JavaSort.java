@@ -5,17 +5,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-class Student implements Comparable<Student> {
+class StudentSrt implements Comparable<StudentSrt> {
 
-    private static final Comparator<Student> STUDENT_COMPARATOR =
-            Comparator.comparingDouble(Student::getCgpa).reversed()
-                    .thenComparing(Student::getFname)
-                    .thenComparingInt(Student::getId);
+    private static final Comparator<StudentSrt> STUDENT_COMPARATOR =
+            Comparator.comparingDouble(StudentSrt::getCgpa).reversed()
+                    .thenComparing(StudentSrt::getFname)
+                    .thenComparingInt(StudentSrt::getId);
     private int id;
     private String fname;
     private double cgpa;
 
-    public Student(int id, String fname, double cgpa) {
+    public StudentSrt(int id, String fname, double cgpa) {
         super();
         this.id = id;
         this.fname = fname;
@@ -35,7 +35,7 @@ class Student implements Comparable<Student> {
     }
 
     @Override
-    public int compareTo(Student other) {
+    public int compareTo(StudentSrt other) {
         return STUDENT_COMPARATOR.compare(this, other);
     }
 }
@@ -45,13 +45,13 @@ public class JavaSort {
         Scanner in = new Scanner(System.in);
         int testCases = Integer.parseInt(in.nextLine());
 
-        List<Student> studentList = new ArrayList<Student>();
+        List<StudentSrt> studentList = new ArrayList<StudentSrt>();
         while (testCases > 0) {
             int id = in.nextInt();
             String fname = in.next();
             double cgpa = in.nextDouble();
 
-            Student st = new Student(id, fname, cgpa);
+            StudentSrt st = new StudentSrt(id, fname, cgpa);
             studentList.add(st);
 
             testCases--;
