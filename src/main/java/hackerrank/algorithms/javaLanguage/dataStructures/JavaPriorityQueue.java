@@ -1,14 +1,10 @@
 package hackerrank.algorithms.javaLanguage.dataStructures;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 
 class Priorities {
     public List<Student> getStudents(List<String> events) {
-        PriorityQueue priorityQueue = new PriorityQueue<Student>();
+        PriorityQueue<Student> priorityQueue = new PriorityQueue<Student>();
         events.stream()
                 .forEach(el -> {
                     if (el.substring(0, 5).equals("ENTER")) {
@@ -18,13 +14,17 @@ class Priorities {
                         int id = Integer.valueOf(splited[3]);
 
                         Student student = new Student(id, name, grade);
-                        System.out.println("ENTER " + name + " "+ grade + " " + id);
                         priorityQueue.add(student);
                     } else {
                         priorityQueue.poll();
                     }
                 });
-        return new ArrayList<Student>(priorityQueue);
+        ArrayList<Student> students = new ArrayList<>();
+        while (!priorityQueue.isEmpty()) {
+            students.add(priorityQueue.poll());
+        }
+
+        return students;
     }
 }
 
