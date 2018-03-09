@@ -12,7 +12,7 @@ public class JavaInterface {
 
         @Override
         public int divisor_sum(int n) {
-            return IntStream.range(0, n)
+            return IntStream.range(1, n+1)
                     .filter(el-> n%el == 0)
                     .sum();
         }
