@@ -6,9 +6,9 @@ public class JavaVarargsSimpleAddition {
         void add(int... values) {
             String sumString = "";
             int sum =  0;
-            for (int i = 1; i < values.length; i++) {
-                sumString += i + "+";
-                sum +=i;
+            for (int i = 0; i < values.length-1; i++) {
+                sumString += values[i] + "+";
+                sum += values[i];
             }
             sumString += values[values.length-1];
             sum += values[values.length-1];
