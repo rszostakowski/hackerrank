@@ -3,4 +3,7 @@
 build/
 out/
 gradle/
-
+*.swp
+*.iml
+gradlew
+gradlew.bat
