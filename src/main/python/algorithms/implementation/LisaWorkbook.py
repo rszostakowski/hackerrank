@@ -13,8 +13,14 @@ def workbook(n, k, arr):
         counter = 0
         workbooks = math.ceil(float(float(arr[i]/(k*1.0))))
         print("arr[i]: {} and workbooks for it: {}".format(arr[i], workbooks))
-        if arr[i] >= i:
-            counter
+        box = 0
+        for j in range(1, int(workbooks)):
+            start = box * k
+            end = (box+1) * k
+            print("start {} end {}".format(start, end))
+            box += 1
+            if box in squere:
+                counter += 1
 
 
 n = 5
