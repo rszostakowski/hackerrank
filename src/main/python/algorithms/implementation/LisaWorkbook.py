@@ -4,23 +4,24 @@ import re
 import sys
 import math
 
-# Complete the workbook function below.
-
 
 def workbook(n, k, arr):
+    counter = 0
+    box = 0
     for i in range(0, n):
         # print(i)
-        counter = 0
         workbooks = math.ceil(float(float(arr[i]/(k*1.0))))
         print("arr[i]: {} and workbooks for it: {}".format(arr[i], workbooks))
-        box = 0
-        for j in range(1, int(workbooks)):
-            start = box * k
-            end = (box+1) * k
-            print("start {} end {}".format(start, end))
+        for j in range(0, int(workbooks)):
+            start = j * k
+            end = (j+1) * k
+            if end > arr[i]:
+                end = arr[i]
             box += 1
-            if box in squere:
+            print("start {} end {} box: {}".format(start, end, box))
+            if box <= end and start <= box:
                 counter += 1
+    print(counter)
 
 
 n = 5
