@@ -19,7 +19,7 @@ def workbook(n, k, arr):
                 end = arr[i]
             box += 1
             print("start {} end {} box: {}".format(start, end, box))
-            if box <= end and start <= box:
+            if start < box and box <= end:
                 counter += 1
     print(counter)
 
@@ -28,4 +28,10 @@ n = 5
 k = 3
 arr = [4, 2, 6, 1, 10]
 
+workbook(n, k, arr)
+print("")
+print("Second example")
+n = 10
+k = 5
+arr = [3, 8, 15, 11, 14, 1, 9, 2, 24, 31]
 workbook(n, k, arr)
