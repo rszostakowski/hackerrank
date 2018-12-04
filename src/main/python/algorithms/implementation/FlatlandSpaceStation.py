@@ -1,5 +1,6 @@
 import sys
 
+
 def flatlandSpaceStations(n, c):
     c = sorted(c)
     print("n {} c {}".format(n, c))
@@ -7,8 +8,7 @@ def flatlandSpaceStations(n, c):
         return 0
     max_dist = 0
     for i in range(0, n):
-        min_el = find_closest_left(i, c)
-        max_el = find_closest_right(i, c)
+        min_el, max_el = find_closest_left_right(i, c)
         tmp = min(abs(i-min_el), abs(max_el-i))
         print("i {} min and max {} {} min distance {}".format(
             i, min_el, max_el, tmp))
@@ -17,24 +17,19 @@ def flatlandSpaceStations(n, c):
     return max_dist
 
 
-def find_closest_left(i, c):
-    min_el = c[0] 
-    for station in c:
-        if station >= min_el and station <= i:
-            min_el = station
+def find_closest_left_right(i, c):
+    min_el, max_el = 0
+    # TODO binary search python
+    first = 0
+    last = len(c)-1
+    while c[first] <= i and  i <= c[last]:
+        midpoint = (first + last)/2
+        if i < c[midpoint]:
+            last = midpoint - 1 
         else:
-            break
-
-    return min_el
-
-def find_closest_right(i, c):
-    max_el = c[len(c) -1] 
-    for station in c:
-        if station <= max_el and station >= i:
-            max_el = station
-            break
-    # TODO maybe it is possible to join these two for loops 
-    return max_el
+            first = midpoint + 1 
+    
+    return min_el, min_el
 
 # n=6
 # c=[0, 1, 2, 4, 3, 5]
