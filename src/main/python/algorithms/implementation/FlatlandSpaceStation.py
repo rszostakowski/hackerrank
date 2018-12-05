@@ -18,18 +18,21 @@ def flatlandSpaceStations(n, c):
 
 
 def find_closest_left_right(i, c):
-    min_el, max_el = 0
+    min_el = 0 
+    max_el = 0
     # TODO binary search python
     first = 0
     last = len(c)-1
-    while c[first] <= i and  i <= c[last]:
-        midpoint = (first + last)/2
+    midpoint = (first + last)/2
+    # DO while the condition
+    while len(c) >2 and c[midpoint] > i and c[midpoint+1]  i:
         if i < c[midpoint]:
             last = midpoint - 1 
         else:
             first = midpoint + 1 
-    
-    return min_el, min_el
+        midpoint = (first + last)/2
+    print("left {} right {}".format(c[midpoint],c[midpoint+1]))
+    return c[midpoint], c[midpoint+1]
 
 # n=6
 # c=[0, 1, 2, 4, 3, 5]
