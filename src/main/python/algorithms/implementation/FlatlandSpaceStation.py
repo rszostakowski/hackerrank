@@ -25,12 +25,22 @@ def find_closest_left_right(i, c):
     last = len(c)-1
     midpoint = (first + last)/2
     # DO while the condition
-    while len(c) >2 and c[midpoint] > i and c[midpoint+1]  i:
+    counter = 10
+    while counter  > 0:
+        print("Before checking the condition midpoint {}".format(midpoint))
+        if midpoint + 1 == len(c):
+            print("Should break from the loop")
+            break
+        print("first {} last {} midpoint {} left {} i {} right {}".format(first, last, midpoint, c[midpoint], i, c[midpoint +1]))
+        if c[midpoint] <= i and i <= c[midpoint+1]:
+            break
         if i < c[midpoint]:
             last = midpoint - 1 
         else:
             first = midpoint + 1 
         midpoint = (first + last)/2
+        counter = counter - 1
+    print("Befor closing midpoint {}".format(midpoint))
     print("left {} right {}".format(c[midpoint],c[midpoint+1]))
     return c[midpoint], c[midpoint+1]
 
