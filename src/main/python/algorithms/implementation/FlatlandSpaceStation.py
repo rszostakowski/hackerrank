@@ -1,6 +1,5 @@
 import sys
 
-
 def flatlandSpaceStations(n, c):
     c = sorted(c)
     print("n {} c {}".format(n, c))
@@ -8,41 +7,26 @@ def flatlandSpaceStations(n, c):
         return 0
     max_dist = 0
     for i in range(0, n):
-        min_el, max_el = find_closest_left_right(i, c)
+        min_el, max_el = find_closest(i, c)
         tmp = min(abs(i-min_el), abs(max_el-i))
-        print("i {} min and max {} {} min distance {}".format(
+        print("i {} min {} and max {} min distance {}".format(
             i, min_el, max_el, tmp))
         if tmp > max_dist:
             max_dist = tmp
     return max_dist
 
 
-def find_closest_left_right(i, c):
-    min_el = 0 
-    max_el = 0
-    # TODO binary search python
-    first = 0
-    last = len(c)-1
-    midpoint = (first + last)/2
-    # DO while the condition
-    counter = 10
-    while counter  > 0:
-        print("Before checking the condition midpoint {}".format(midpoint))
-        if midpoint + 1 == len(c):
-            print("Should break from the loop")
+def find_closest(i, c):
+    min_el = c[0] 
+    max_el = c[len(c) -1] 
+    for station in c:
+        if station <= i:
+            min_el = station
+        if station >= i:
+            max_el = station
             break
-        print("first {} last {} midpoint {} left {} i {} right {}".format(first, last, midpoint, c[midpoint], i, c[midpoint +1]))
-        if c[midpoint] <= i and i <= c[midpoint+1]:
-            break
-        if i < c[midpoint]:
-            last = midpoint - 1 
-        else:
-            first = midpoint + 1 
-        midpoint = (first + last)/2
-        counter = counter - 1
-    print("Befor closing midpoint {}".format(midpoint))
-    print("left {} right {}".format(c[midpoint],c[midpoint+1]))
-    return c[midpoint], c[midpoint+1]
+
+    return min_el, max_el
 
 # n=6
 # c=[0, 1, 2, 4, 3, 5]
