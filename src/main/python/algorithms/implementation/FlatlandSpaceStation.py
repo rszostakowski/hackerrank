@@ -1,46 +1,33 @@
 import sys
+import math
+
 
 def flatlandSpaceStations(n, c):
     c = sorted(c)
-    print("n {} c {}".format(n, c))
     if n == len(c):
         return 0
-    max_dist = 0
-    for i in range(0, n):
-        min_el, max_el = find_closest(i, c)
-        tmp = min(abs(i-min_el), abs(max_el-i))
-        print("i {} min {} and max {} min distance {}".format(
-            i, min_el, max_el, tmp))
-        if tmp > max_dist:
-            max_dist = tmp
+
+    max_dist = c[0]
+    last_el_dist = n -1 - c[len(c)-1]
+    if last_el_dist  > max_dist:
+        max_dist = last_el_dist 
+
+    for i in range(0, len(c)):
+        dist = int(math.ceil((c[i]-c[i-1])/2))
+        if dist > max_dist:
+            max_dist = dist
+
     return max_dist
-
-
-def find_closest(i, c):
-    min_el = c[0] 
-    max_el = c[len(c) -1] 
-    for station in c:
-        if station <= i:
-            min_el = station
-        if station >= i:
-            max_el = station
-            break
-
-    return min_el, max_el
-
-# n=6
-# c=[0, 1, 2, 4, 3, 5]
-# flatlandSpaceStations(n, c)
 
 
 # n = 5
 # c = [0, 4]
 # flatlandSpaceStations(n, c)
-
-n=100
-c=[93, 41, 91, 61, 30, 6, 25, 90, 97]
-res3 = flatlandSpaceStations(n, c)
-print(res3)
+#
+# n=100
+# c=[93, 41, 91, 61, 30, 6, 25, 90, 97]
+# res3 = flatlandSpaceStations(n, c)
+# print(res3)
 
 # n = 95
 # c = [68, 81, 46, 54, 30, 11, 19, 23, 22,
@@ -49,4 +36,7 @@ print(res3)
 # print(res4)
 
 
-
+n = 20
+c = [1, 6, 10, 11, 13]
+res5 = flatlandSpaceStations(n, c)
+print(res5)
