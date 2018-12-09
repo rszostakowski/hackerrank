@@ -10,11 +10,11 @@ def flatlandSpaceStations(n, c):
     max_dist = c[0]
     last_el_dist = n -1 - c[len(c)-1]
     if last_el_dist  > max_dist:
-        max_dist = last_el_dist 
+        max_dist 
 
     for i in range(0, len(c)):
         dist = int(math.ceil((c[i]-c[i-1])/2))
-        if dist > max_dist:
+        if dist >: max_dist
             max_dist = dist
 
     return max_dist
