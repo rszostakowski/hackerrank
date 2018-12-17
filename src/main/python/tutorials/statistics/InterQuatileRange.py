@@ -1,5 +1,5 @@
-import math
-
+def calculate_iqr(x_arr, freq_arr):
+    pass
 
 def read_quartiles(int_arr):
     int_arr = sorted(int_arr)
@@ -23,5 +23,6 @@ def read_quantile(int_arr, qunatile):
         return int((lower + upper)/2)
 
 
-x_arr = [3, 7, 8, 5, 12, 14, 21, 13, 18]
-read_quartiles(x_arr)
+x_arr = []
+freq_arr = []
+calculate_iqr(x_arr, freq_arr)
