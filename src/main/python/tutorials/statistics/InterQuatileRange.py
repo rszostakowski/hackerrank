@@ -1,11 +1,21 @@
-def calculate_iqr(x_arr, freq_arr):
-    pass
+import math
 
-def read_quartiles(int_arr):
-    int_arr = sorted(int_arr)
-    print(read_quantile(int_arr, 0.25))
-    print(read_quantile(int_arr, 0.5))
-    print(read_quantile(int_arr, 0.75))
+
+def calculate_iqr(x_arr, freq_arr):
+    res_arr = []
+    idx = 0
+    for j in freq_arr:
+        for i in range(0, j):
+            res_arr.append(x_arr[idx])
+        idx = idx+1
+    res_arr = sorted(res_arr)
+    print(res_arr)
+
+    q1 = read_quantile(res_arr, 0.25)
+    q3 = read_quantile(res_arr, 0.75)
+    print("q1 {} q2 {}".format(q1, q3))
+    return res_arr[q3]-res_arr[q1]
+
 
 def read_quantile(int_arr, qunatile):
     n = len(int_arr)
@@ -17,12 +27,12 @@ def read_quantile(int_arr, qunatile):
         return int((lower + upper)/2)
     elif fraction == 0.5:
         return int_arr[int(integer)]
-    else: 
+    else:
         lower = int_arr[int(integer)]
         upper = int_arr[int(integer+1)]
         return int((lower + upper)/2)
 
 
-x_arr = []
-freq_arr = []
-calculate_iqr(x_arr, freq_arr)
+x_arr = [6, 12, 8, 10, 20, 16]
+freq_arr = [5, 4, 3, 2, 1, 5]
+print(calculate_iqr(x_arr, freq_arr))
