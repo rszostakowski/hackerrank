@@ -13,26 +13,25 @@ def calculate_iqr(x_arr, freq_arr):
 
     q1 = read_quantile(res_arr, 0.25)
     q3 = read_quantile(res_arr, 0.75)
-    print("q1 {} q2 {}".format(q1, q3))
-    return res_arr[q3]-res_arr[q1]
+    print("q1 {} q3 {}".format(q1, q3))
+    return q3-q1
 
 
 def read_quantile(int_arr, qunatile):
     n = len(int_arr)
     fraction, integer = math.modf(n*qunatile)
-    # print("fraction {} integer {}".format(fraction, integer))
-    if fraction < 0.5:
+    print("fraction {} integer {}".format(fraction, integer))
+    if n % 2 == 0: 
         lower = int_arr[int(integer-1)]
         upper = int_arr[int(integer)]
         return int((lower + upper)/2)
-    elif fraction == 0.5:
-        return int_arr[int(integer)]
     else:
-        lower = int_arr[int(integer)]
-        upper = int_arr[int(integer+1)]
-        return int((lower + upper)/2)
-
+        return int_arr[int(integer)]
 
 x_arr = [6, 12, 8, 10, 20, 16]
 freq_arr = [5, 4, 3, 2, 1, 5]
+print(calculate_iqr(x_arr, freq_arr))
+
+x_arr = [10, 40, 30, 50, 20]
+freq_arr = [1, 2, 3, 4, 5]
 print(calculate_iqr(x_arr, freq_arr))
