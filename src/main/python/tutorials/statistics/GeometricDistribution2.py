@@ -8,6 +8,6 @@ def calc_prob(p,q,n):
     p1 = float(p)/q
     p2 = 1 - p1
     print("p1 {} p2 {}".format(p1, p2))
-    return sum([ geo_prob(p1,p2,i) for i in range(1,n+1)])
+    return round(sum([ geo_prob(p1,p2,i) for i in range(1,n+1)]),3)
 
 print(calc_prob(1, 3, 5))
