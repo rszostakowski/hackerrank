@@ -3,14 +3,16 @@ import math
 def calc_prob(n, X, Y):
     mi_x = sum(X)/n
     mi_y = sum(Y)/n
-    ranks_x = calc_ranks(X)
-    ranks_y = calc_ranks(Y)
-    d_2 = sum(math.pow([(ranks_x[i]-ranks_y[i]) for i in range(n)],2))
+    sig_x =  calculate_std(X)
+    sig_y = calculate_std(Y)
+    d_2 = round(sum([(X[i]-mi_x)*(Y[i]-mi_y) for i in range(n)])/(n*sig_x*sig_y),5)
+    print("mi_x {} mi_y {} sig_x {} sig_y {}".format(mi_x,mi_y, sig_x, sig_y))
 
-def calc_ranks(X):
-    ranks_x = []
-    print(sorted(X))
-    print(X)
+def calculate_std(x_arr):
+    n = len(x_arr)
+    avg = sum(x_arr)/n
+    var = sum([((x-avg) **2) for x in x_arr])
+    return (var/n) ** 0.5
 
 n = 10
 X = [10.0, 9.8, 8.0, 7.8, 7.7, 7.0, 6.0, 5.0, 4.0, 2.0]
