@@ -1,20 +1,30 @@
-def calc_linear_reg(x_arr, y_arr):
-    n = len(x_arr)
-    x_sum = sum(x_arr)
-    x_avg = x_sum/n
-    y_sum = sum(y_arr)
-    y_avg = y_sum/n
-    x_2_sum = sum([i**2 for i in x_arr])
-    xy_sum = sum([a*b for a,b in zip(x_arr, y_arr)])
-    b = (n*xy_sum- x_sum*y_sum)/(n*x_2_sum- x_sum ** 2)
-    a = y_avg - b*x_avg
-    return a, b
+import numpy as np
 
-def calc_lin_req_forecast(a, b, x):
-    return round(a + x * b,3)
+def calculate_iqr(X, Y, X_test):
+    X = np.array(X,float)
+    Y = np.array(Y,float)
+    X_test = np.array(X_test,float)
 
-x_arr = [95, 85, 80, 70, 60]
-y_arr = [85, 95, 70, 65, 70]
+    pass
 
-a, b = calc_linear_reg(x_arr, y_arr)
-print(calc_lin_req_forecast(a, b, 80))
+def calc_linear_reg(x_arr, y_arr):  
+    pass
+
+def get_input_params():
+    N, m = list(map(int, input().split(" ")))
+    X = []
+    Y = []
+    X_test = []
+    for i in range(m):
+        raw = input().strip().split(' ')
+        X.append(raw[:m])
+        Y.append(raw[m:])
+    q = int(input().strip())
+    for i in range(q):
+        x_arr = input().strip().split(' ')
+        X_test.append(x_arr)
+    
+    return X, Y, X_test
+
+X, Y, X_test = get_input_params()    
+print(calculate_iqr(X, Y, X_test))
