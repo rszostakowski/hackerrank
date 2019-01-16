@@ -1,19 +1,28 @@
 class Node(object):
-        def __init__(self, data = None, next_node = None):
-            self.data = data
-            self.next = next_node
+    def __init__(self, data=None, next_node=None):
+        self.data = data
+        self.next = next_node
 
 
 def has_cycle(head):
-    while(head!= None):
-        print("data {} next {}".format(head.data, head.next))
+    prev = None
+    while(head != None):
+        # https://docs.python.org/2/library/sets.html try to use Set
+        print("head data {} next {}".format(head.data,head.next))
+        prev = head
         head = head.next
-    
+        print("prev data {} next {}".format(prev.data, prev.next))
+        print("heard data {} next {}".format(head.data, head.next))
+        if prev.data > head.data:
+            print("True")
+            return True
+    print("False")
+    return False
 
-first = Node(11, None)
-fourth = Node(4, first)
+
+fourth = Node(4, None)
 third = Node(5, fourth)
 second = Node(8, third)
-first = Node(12, second)
+first = Node(6, second)
 
-has_cycle(first)
+print(has_cycle(first))
