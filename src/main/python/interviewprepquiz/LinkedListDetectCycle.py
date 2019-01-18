@@ -14,9 +14,7 @@ def has_cycle(head):
         print("prev data {} next {}".format(prev.data, prev.next))
         print("heard data {} next {}".format(head.data, head.next))
         if prev.data > head.data:
-            print("True")
             return True
-    print("False")
     return False
 
 
