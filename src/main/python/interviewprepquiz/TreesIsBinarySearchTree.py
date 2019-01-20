@@ -2,7 +2,8 @@
 def checkBST(root):
     path = []
     inOrder(root, path)
-    print(path)
+    return len(path) == len(set(path)) and path == sorted(path)
+
 
 def inOrder(root, path):
     if root.left != None:
