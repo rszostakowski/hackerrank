@@ -1,36 +1,34 @@
-import numpy as np
-import math
-
-def displayPathtoPrincess(n,grid):
-    print(n)
-    gird = np.array(grid)
-    print(grid)
-    m_x =int(round(float(n)/2))
+def displayPathtoPrincess(n, grid):
+    m_x = int(round(float(n)/2))
     m_y = m_x
-    print(m_x, m_y)
-    p_x, p_y = index_2d(grid, "p")
-    print(p_x, p_y)
 
-    while (m_x != p_x and m_y != p_y):
+    p_x, p_y = index_2d(grid, "p")
+
+    count = 0
+    while ((m_x != p_x or m_y != p_y) and count < 10):
         dist_x, dist_y = calc_dist(m_x, m_y, p_x, p_y)
-        print(dist_x, dist_y)
-        if math.sqrt(dist_x) >= math.sqrt(dist_y):
-            if p_x -m_x > 0:
+        # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(m_x, p_x, dist_x, m_y, p_y, dist_y))
+        if abs(dist_x) >= abs(dist_y):
+            if dist_x > 0:
                 print("RIGHT")
-                p_x = p_x +1
+                m_x=m_x + 1
             else:
                 print("LEFT")
-
+                m_x=m_x - 1
         else:
-            print("UP")
-            print("DOWN")
+            if dist_y > 0:
+                print("DOWN")
+                m_y=m_y + 1
+            else:
+                print("UP")
+                m_y=m_y - 1
 
-
-        m_x = p_x
-        m_y = p_y
+        count=count + 1
 
 def calc_dist(m_x, m_y, p_x, p_y):
-    return 1,1
+    dist_x=p_x - m_x
+    dist_y=p_y - m_y
+    return dist_x, dist_y
 
 def index_2d(data, search):
     for i, e in enumerate(data):
@@ -39,6 +37,8 @@ def index_2d(data, search):
         except ValueError:
             pass
     raise ValueError("{} is not in list".format(repr(search)))
-n = 3
-grid = [["-","-","-"],["-","m","-"],["-","-","p"]]
-displayPathtoPrincess(n,grid)
+n=3
+grid=[["-", "-", "-"], ["-", "m", "-"], ["-", "-", "p"]]
+displayPathtoPrincess(n, grid)
+grid=[["p", "-", "-"], ["-", "m", "-"], ["-", "-", "-"]]
+displayPathtoPrincess(n, grid)
