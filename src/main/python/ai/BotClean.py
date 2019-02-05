@@ -1,11 +1,14 @@
+import numpy as np
+
 def next_move(posr, posc, board):
+
+    board = np.array(board)
     dirt_x, dirt_y = find_closest_dirt(posr, posc, board)
     dist_x, dist_y = calc_dist(posr, posc, dirt_x, dirt_y)
 
     # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(r, p_x, dist_x, c, p_y, dist_y))
 
-    print(dist_x)
-    print(dist_y)
+    print("dirt_x {} dirt_y {}".format(dirt_x, dirt_y))
     if abs(dist_x) >= abs(dist_y):
         if dist_x > 0:
             return("RIGHT")
@@ -19,8 +22,20 @@ def next_move(posr, posc, board):
 
 def find_closest_dirt(posr, posc, board):
     board_len = len(board)
-    while i < board_len:
-#      look from dirt from nearest   
+
+#  (1,0), (1,1), (0,1), (-1,1), (-1,0), (-1,-1), (0,-1), (1,-1)
+#  (2,0), (2,1), (2,2), 
+# https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
+    for x in range(1,board_len):
+        print("x {}".format(x))
+        if posr+x >= 0 and posr+x < board_len and board[posr+x, posc] == 'd':
+            return posr+x, posc 
+        if posc+x >= 0 and posc+x < board_len and board[posr, posc+x] == 'd':
+            return posr, posc+x
+        if posr-x >= 0 and posr-x < board_len and board[posr-x, posc] == 'd':
+            return posr-x, posc
+        if posc-x >= 0 and posc-x < board_len and board[posr, posc-x] == 'd':
+            return posr, posc-x
     return 1,1
 
 def calc_dist(m_x, m_y, p_x, p_y):
