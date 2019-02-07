@@ -18,23 +18,22 @@ def next_move(posr, posc, board):
             return("UP")
 
 def find_closest_dirt(posr, posc, board):
-    board_len = len(board)
+    board_len = len(board);
+    
+    d_points = {}
+    print("Printing")
+    for i in range(0, board_len):
+        for j in range(0, board_len):
+            el = board[i][j]
+            if el == 'd':
+                key = "{},{}".format(i,j)
+                d1, d2 = calc_dist(posc, posr, i, j) 
+                d_points[key] = d1+d2
 
-    coordinates = []
-    for i in range(-(board_len+1),board_len):
-        for j in range(-(board_len+1),board_len):
-            coordinates.append((i,j))
-
-    print(coordinates)
-    for i in coordinates:
-        new_x = posr + i[0]        
-        new_y = posc + i[1]        
-
-        if new_x >= 0 and new_x < board_len and new_y>= 0 and new_y < board_len and board[new_x][new_y] == 'd':
-
-            print(new_x, new_y)
-            return new_x, new_y
-    raise Exception("wrong")
+    print(d_points)
+    sorted_by_value = sorted(d_points.items(), key=lambda kv: kv[1])
+    print(sorted_by_value)
+    return 1,1
 #  (1,0), (1,1), (0,1), (-1,1), (-1,0), (-1,-1), (0,-1), (1,-1)
 #  (2,0), (2,1), (2,2), 
 # https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
