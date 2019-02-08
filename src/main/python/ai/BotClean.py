@@ -1,11 +1,13 @@
+import collections 
 
 def next_move(posr, posc, board):
-    dirt_x, dirt_y = find_closest_dirt(posr, posc, board)
-    dist_x, dist_y = calc_dist(posr, posc, dirt_x, dirt_y)
+    cords, distance = find_closest_dirt(posr, posc, board)
+    print("cords {} distance {}".format(cords, distance))
+    print(cords[1])
+    dist_x, dist_y = calc_dist(posr, posc, int(cords[0]), int(cords[1]))
 
     # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(r, p_x, dist_x, c, p_y, dist_y))
 
-    print("dirt_x {} dirt_y {}".format(dirt_x, dirt_y))
     if abs(dist_x) >= abs(dist_y):
         if dist_x > 0:
             return("RIGHT")
@@ -31,9 +33,10 @@ def find_closest_dirt(posr, posc, board):
                 d_points[key] = d1+d2
 
     print(d_points)
-    sorted_by_value = sorted(d_points.items(), key=lambda kv: kv[1])
-    print(sorted_by_value)
-    return 1,1
+    orderedDict = collections.OrderedDict(sorted(d_points.items(), key=lambda kv: kv[1]))
+    print(orderedDict)
+    return next(iter(orderedDict.items()))
+
 #  (1,0), (1,1), (0,1), (-1,1), (-1,0), (-1,-1), (0,-1), (1,-1)
 #  (2,0), (2,1), (2,2), 
 # https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
