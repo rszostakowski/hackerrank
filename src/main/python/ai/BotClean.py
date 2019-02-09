@@ -3,21 +3,24 @@ import collections
 def next_move(posr, posc, board):
     cords, distance = find_closest_dirt(posr, posc, board)
     print("cords {} distance {}".format(cords, distance))
-    print(cords[1])
-    dist_x, dist_y = calc_dist(posr, posc, int(cords[0]), int(cords[1]))
+    coma_idx = cords.find(",")
+    cord_x = int(cords[0:coma_idx])
+    cord_y = int(cords[coma_idx+1:len(cords)])
+
+    dist_x, dist_y = calc_dist(int(posr), int(posc), cord_x, cord_y)
 
     # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(r, p_x, dist_x, c, p_y, dist_y))
-
+    print("dist_x {} , dist_y {}".format(dist_x, dist_y)) 
     if abs(dist_x) >= abs(dist_y):
         if dist_x > 0:
-            return("RIGHT")
+            print("RIGHT")
         else:
-            return("LEFT")
+            print("LEFT")
     else:
         if dist_y > 0:
-            return("DOWN")
+            print("DOWN")
         else:
-            return("UP")
+            print("UP")
 
 def find_closest_dirt(posr, posc, board):
     board_len = len(board);
@@ -42,6 +45,12 @@ def find_closest_dirt(posr, posc, board):
 # https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
 
 def calc_dist(m_x, m_y, p_x, p_y):
+    print(type(m_x))
+    print(type(m_y))
+    print(type(p_x))
+    print(type(p_y))
+    
+    print("m_x {},  m_y {}, p_x {}, p_y {}".format(m_x, m_y, p_x, p_y))
     dist_x=p_y - m_y
     dist_y=p_x - m_x
     return dist_x, dist_y
@@ -56,4 +65,4 @@ board = [
         ["-", "-", "-", "-", "d"]
 ]
 
-print(next_move(posr, posc, board))
+next_move(posr, posc, board)
