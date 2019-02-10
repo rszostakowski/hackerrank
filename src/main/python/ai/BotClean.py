@@ -11,7 +11,9 @@ def next_move(posr, posc, board):
 
     # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(r, p_x, dist_x, c, p_y, dist_y))
     print("dist_x {} , dist_y {}".format(dist_x, dist_y)) 
-    if abs(dist_x) >= abs(dist_y):
+    if dist_x == 0 and dist_y == 0:
+        print("CLEAN")
+    elif abs(dist_x) >= abs(dist_y):
         if dist_x > 0:
             print("RIGHT")
         else:
@@ -37,7 +39,6 @@ def find_closest_dirt(posr, posc, board):
 
     print(d_points)
     orderedDict = collections.OrderedDict(sorted(d_points.items(), key=lambda kv: kv[1]))
-    print(orderedDict)
     return next(iter(orderedDict.items()))
 
 #  (1,0), (1,1), (0,1), (-1,1), (-1,0), (-1,-1), (0,-1), (1,-1)
@@ -45,10 +46,10 @@ def find_closest_dirt(posr, posc, board):
 # https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
 
 def calc_dist(m_x, m_y, p_x, p_y):
-    print(type(m_x))
-    print(type(m_y))
-    print(type(p_x))
-    print(type(p_y))
+    # print(type(m_x))
+    # print(type(m_y))
+    # print(type(p_x))
+    # print(type(p_y))
     
     print("m_x {},  m_y {}, p_x {}, p_y {}".format(m_x, m_y, p_x, p_y))
     dist_x=p_y - m_y
