@@ -11,7 +11,7 @@ def next_move(posr, posc, board):
 
     # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(r, p_x, dist_x, c, p_y, dist_y))
     print("dist_x {} , dist_y {}".format(dist_x, dist_y)) 
-    if dist_x == 0 and dist_y == 0:
+    if board[cord_x][cord_y] == "b"
         print("CLEAN")
     elif abs(dist_x) >= abs(dist_y):
         if dist_x > 0:
@@ -34,11 +34,12 @@ def find_closest_dirt(posr, posc, board):
             el = board[i][j]
             if el == 'd':
                 key = "{},{}".format(i,j)
-                d1, d2 = calc_dist(posc, posr, i, j) 
-                d_points[key] = d1+d2
-
+                d1, d2 = calc_dist(posr, posc, i, j) 
+                d_points[key] = abs(d1)+abs(d2)
+    # TODO taking first element does not work good enough
     print(d_points)
     orderedDict = collections.OrderedDict(sorted(d_points.items(), key=lambda kv: kv[1]))
+    print(orderedDict)
     return next(iter(orderedDict.items()))
 
 #  (1,0), (1,1), (0,1), (-1,1), (-1,0), (-1,-1), (0,-1), (1,-1)
@@ -56,14 +57,15 @@ def calc_dist(m_x, m_y, p_x, p_y):
     dist_y=p_x - m_x
     return dist_x, dist_y
 
-posr = 0
-posc = 0
+posr = 1
+posc = 2
 board = [
-        ["b", "-", "-", "-", "d"],
-        ["-", "d", "-", "-", "d"],
-        ["-", "-", "d", "d", "-"],
-        ["-", "-", "d", "-", "-"],
-        ["-", "-", "-", "-", "d"]
+        ["-", "-", "-", "d", "-"],
+        ["-", "-", "-", "-", "-"],
+        ["-", "-", "-", "-", "-"],
+        ["-", "-", "-", "-", "-"],
+        ["d", "-", "d", "-", "-"]
 ]
 
 next_move(posr, posc, board)
+
