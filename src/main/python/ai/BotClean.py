@@ -11,7 +11,7 @@ def next_move(posr, posc, board):
 
     # print("m_x: {} p_x: {} dist_x {} m_y: {} p_y {} dist_y: {}".format(r, p_x, dist_x, c, p_y, dist_y))
     print("dist_x {} , dist_y {}".format(dist_x, dist_y)) 
-    if board[cord_x][cord_y] == "b"
+    if board[posr][posc] == "d":
         print("CLEAN")
     elif abs(dist_x) >= abs(dist_y):
         if dist_x > 0:
