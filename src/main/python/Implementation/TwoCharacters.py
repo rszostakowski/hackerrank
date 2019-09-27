@@ -5,10 +5,10 @@ def alternate(s):
     combs = list(itertools.combinations(my_set, 2))
     max_len = 0
     for comb in combs:
-        replaced = s.replace(comb[0], '')
-        replaced = replaced.replace(comb[1], '')
+        replaced = ''.join(c for c in s if c == comb[0] or c == comb[1]) 
         if is_correct(replaced):
             if len(replaced) > max_len:
+                print("replaced {} max len {}".format(replaced, max_len))
                 max_len = len(replaced)    
     return max_len
 
@@ -17,4 +17,5 @@ def is_correct(s):
         if s[i] == s[i-1]:
             return False
     return True
-print(alternate("beabeefeab"))
+# print(alternate("beabeefeab"))
+print(alternate("asdcbsdcagfsdbgdfanfghbsfdab"))
