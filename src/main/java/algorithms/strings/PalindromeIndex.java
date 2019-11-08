@@ -1,48 +1,33 @@
 package algorithms.strings;
 
-import java.io.*;
-
 public class PalindromeIndex {
-    static int palindromeIndex(String s) {
-	if (isPalindrom(s)){
+	static int palindromeIndex(String s){
+		for(int i =0,j =s.length()-1; i<j; i++, j--)
+			if(s.charAt(i)!=s.charAt(j)) {
+				System.out.println("char i: " + s.charAt(i) + " char j: "+ s.charAt(j));
+				if(isPalindrome(s, i))
+					return i;
+				else if(isPalindrome(s, j))
+					return j;
+			}
 		return -1;
-	}
-
-	for (int i = 0; i < s.length(); i++) {
-		StringBuilder sb = new StringBuilder(s);
-		sb.deleteCharAt(i);
-		String sPrime = sb.toString();
-		if(isPalindrom(sPrime)){
-			return i;	
-		}
-	}
-        
-        return -1;
-    }
-
-    // private static boolean isPalindrom(String word){
-	// return word.equals(new StringBuilder(word).reverse().toString());
-    // }
-	private static boolean isPalindrom(String word){
-            int start = 0;
-	    int end = word.length();
-		
-	    while(start > end) {
-		if(word.charAt(start) !=  word.charAt(end)){
-			return false;
-		}
-		start++;    
-		end++;
-	    }
-	    return true;
-	}
-
-
-    public static void main(String[] args) throws IOException {
-	    System.out.println(palindromeIndex("aaab"));
-	    System.out.println(palindromeIndex("baa"));
-	    System.out.println(palindromeIndex("aaa"));
-	}
+        }
     
+	static boolean isPalindrome(String s, int index){
+		System.out.println("String s: " + s + " index: "+ index);
+		for(int i =index+1,j =s.length()-1-index; i<j; i++, j--){
+			if(s.charAt(i)!=s.charAt(j))
+				return false;index
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		// System.out.println(PalindromeIndex.palindromeIndex("aaab"));
+		// System.out.println(PalindromeIndex.palindromeIndex("baa"));
+		// System.out.println(PalindromeIndex.palindromeIndex("aaa"));
+		System.out.println(PalindromeIndex.palindromeIndex("abcdefgh"));
+		// System.out.println(PalindromeIndex.palindromeIndex("nylsjxeiyadwscfmipfsxjqoovgbalppkdkvcoebojbjlgwvyeomckowqlrfhnoq"));
+	}
 }
 
