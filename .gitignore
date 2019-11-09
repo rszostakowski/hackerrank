@@ -7,3 +7,7 @@ gradle/
 *.iml
 gradlew
 gradlew.bat
+.project
+.classpath
+*.prefs
+target/
