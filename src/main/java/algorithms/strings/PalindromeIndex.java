@@ -17,7 +17,7 @@ public class PalindromeIndex {
 		System.out.println("String s: " + s + " index: "+ index);
 		for(int i =index+1,j =s.length()-1-index; i<j; i++, j--){
 			if(s.charAt(i)!=s.charAt(j))
-				return false;index
+				return false;
 		}
 		return true;
 	}
