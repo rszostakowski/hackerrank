@@ -1,4 +1,4 @@
-package algorithms.strings;
+package section_algorithms.strings;
 
 public class PalindromeIndex {
 	static int palindromeIndex(String s){

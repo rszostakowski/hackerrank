@@ -1,4 +1,4 @@
-package algorithms.strings;
+package section_algorithms.strings;
 import java.util.Scanner;
 
 public class SuperReducedString {
