@@ -77,7 +77,7 @@ public class MaximumSubarray53 {
     }
 
     // The best
-    public int maxSubArray(int[] nums) {
+    public static int maxSubArray(int[] nums) {
         int maxSum = nums[0];
         int currentSum = nums[0];
 
