@@ -1,8 +1,6 @@
 package leetcode.problems;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TheBestOf {
 
@@ -107,5 +105,106 @@ public class TheBestOf {
             }
         }
         return ans;
+    }
+
+    public static int lengthOfLongestSubstring(String s) {
+
+        Set<Character> unique = new HashSet<>();
+
+        int left = 0;
+        int right = 0;
+
+        int max = 0;
+        while (right < s.length()) {
+            char charRight = s.charAt(right);
+            if (unique.contains(charRight)) {
+                unique.remove(s.charAt(left));
+                left++;
+            } else {
+                unique.add(charRight);
+                max = Math.max(max, right - left + 1);
+                right++;
+            }
+        }
+        return max;
+    }
+
+    public int[][] merge(int[][] intervals) {
+
+        Arrays.sort(intervals, Comparator.comparingInt((int[] row) -> row[0]).thenComparing(row -> row[1]));
+
+        Stack<int[]> st = new Stack();
+
+        st.push(intervals[0]);
+
+        for (int i=1; i < intervals.length; i++) {
+            int[] last = st.pop();
+
+            if (last[1] >= intervals[i][0] ) {
+                if (last[1] < intervals[i][1]) {
+                    last[1] = intervals[i][1];
+                }
+                st.push(last);
+            } else {
+                st.push(last);
+                st.push(intervals[i]);
+            }
+
+
+        }
+
+        return st.toArray(new int[st.size()][]);
+    }
+
+    //https://leetcode.com/problems/minimum-size-subarray-sum/submissions/?envType=study-plan-v2&envId=top-interview-150
+    // Given an array of positive integers nums and a positive integer target, return the minimal length of a
+    //subarray
+    // whose sum is greater than or equal to target. If there is no such subarray, return 0 instead
+    public int minSubArrayLen(int target, int[] nums) {
+        int n = nums.length;
+        int left = 0;
+        int smallest = Integer.MAX_VALUE;
+        int s = 0;
+        for (int i=0; i < n; i++) {
+            s += nums[i];
+            while (s>= target ) {
+                System.out.println(s);
+                smallest = Math.min(smallest,  i - left + 1);
+                s -= nums[left];
+                left++;
+            }
+        }
+
+        return smallest == Integer.MAX_VALUE ? 0: smallest;
+    }
+
+    /*
+        bool isIsomorphic(string s, string t) {
+        int m1[256] = {0}, m2[256] = {0}, n = s.size();
+        for (int i = 0; i < n; ++i) {
+            if (m1[s[i]] != m2[t[i]]) return false;
+            m1[s[i]] = i + 1;
+            m2[t[i]] = i + 1;
+        }
+        return true;
+    }
+     */
+
+    // great explanation of the problem https://leetcode.com/problems/word-pattern/solutions/73402/8-lines-simple-java/
+
+    public static boolean wordPattern(String pattern, String str) {
+        String[] words = str.split(" ");
+        if (words.length != pattern.length())
+            return false;
+        Map index = new HashMap();
+        for (Integer i=0; i<words.length; ++i)
+            if (index.put(pattern.charAt(i), i) != index.put(words[i], i))
+                return false;
+        return true;
+    }
+
+    int isPowerOfTwo (int x)
+    {
+        return ((x != 0) && !(x & (x - 1)));
     }
 }
