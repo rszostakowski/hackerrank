@@ -1,5 +1,9 @@
 package leetcode.problems;
 
+import leetcode.problems.list_nodes.AddTwoNumbers2;
+import leetcode.problems.top_interview_150.linked_list.ListNode;
+import leetcode.problems.top_interview_150.linked_list.Node;
+
 import java.util.*;
 
 public class TheBestOf {
@@ -203,8 +207,143 @@ public class TheBestOf {
         return true;
     }
 
+    /*
     int isPowerOfTwo (int x)
     {
         return ((x != 0) && !(x & (x - 1)));
     }
+    */
+
+    // nice solution but it seems to be o(n^2) but
+    // The inner loop is based on a conditional that does not occur n times in an average case so you would not consider it a nested loop.
+    // https://leetcode.com/problems/longest-consecutive-sequence/description/
+    public int longestConsecutive2(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int n : nums) {
+            set.add(n);
+        }
+        int best = 0;
+        for(int n : set) {
+            if(!set.contains(n - 1)) {  // only check for one direction
+                int m = n + 1;
+                while(set.contains(m)) { // this is a nice treak!
+                    m++;
+                }
+                best = Math.max(best, m - n);
+            }
+        }
+        return best;
+    }
+
+    // Floyd’s Cycle-Finding Algorithm - this is coooool! TODO add it
+
+    // Floyd’s Cycle-Finding Algorithm - this is coooool! https://leetcode.com/problems/linked-list-cycle/description/
+    //Floyd’s Cycle-Finding Algorithm // fast slow approach // 2 pointers // "tortoise and the hare algorithm"
+    public boolean hasCycle(ListNode head) {
+
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while(true) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast == slow) {
+                return true;
+            }
+        }
+    }
+
+    // the best solution from the internet - which DOES not use HASHMAP
+    // https://leetcode.com/problems/copy-list-with-random-pointer/solutions/43491/a-solution-with-constant-space-complexity-o-1-and-linear-time-complexity-o-n/
+    public Node copyRandomList2(Node head) {
+        Node iter = head, next;
+
+        // First round: make copy of each node,
+        // and link them together side-by-side in a single list.
+        while (iter != null) {
+            next = iter.next;
+
+            Node copy = new Node(iter.val);
+            iter.next = copy;
+            copy.next = next;
+
+            iter = next;
+        }
+
+        // Second round: assign random pointers for the copy nodes.
+        iter = head;
+        while (iter != null) {
+            if (iter.random != null) {
+                iter.next.random = iter.random.next;
+            }
+            iter = iter.next.next;
+        }
+
+        // Third round: restore the original list, and extract the copy list.
+        iter = head;
+        Node pseudoHead = new Node(0);
+        Node copy, copyIter = pseudoHead;
+
+        while (iter != null) {
+            next = iter.next.next;
+
+            // extract the copy
+            copy = iter.next;
+            copyIter.next = copy;
+            copyIter = copy;
+
+            // restore the original list
+            iter.next = next;
+
+            iter = next;
+        }
+
+        return pseudoHead.next;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
