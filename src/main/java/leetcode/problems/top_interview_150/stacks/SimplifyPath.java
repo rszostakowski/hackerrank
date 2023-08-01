@@ -9,13 +9,9 @@ public class SimplifyPath {
 
         for (String part : parts) {
             if (!part.equals("/") && part.length() != 0) {
-                if (part.equals("..")) {
-                    if (!st.isEmpty() && !st.peek().equals("/")) {
-                        st.pop();
-                        st.pop();
-                    }
-                } else if(!part.equals(".")) {
-                    st.push("/");
+                if (part.equals("..") && !st.isEmpty()) {
+                    st.pop();
+                } else if(!part.equals(".") && !part.equals("..")) {
                     st.push(part);
                 }
             }
@@ -28,7 +24,7 @@ public class SimplifyPath {
 
         String res = "";
         while(!st.isEmpty()) {
-            res = st.pop() + res;
+            res =    "/"  + st.pop()  + res;
         }
         return res;
     }
