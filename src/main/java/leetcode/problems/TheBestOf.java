@@ -1,6 +1,7 @@
 package leetcode.problems;
 
 import leetcode.problems.list_nodes.AddTwoNumbers2;
+import leetcode.problems.top_interview_150.graph.TreeNode;
 import leetcode.problems.top_interview_150.linked_list.ListNode;
 import leetcode.problems.top_interview_150.linked_list.Node;
 
@@ -304,6 +305,94 @@ public class TheBestOf {
         }
 
         return pseudoHead.next;
+    }
+
+    public List<Integer> rightSideView(TreeNode root) {
+
+        List<Integer> res = new LinkedList();
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+
+        if (root != null) {
+            q.add(root);
+        }
+
+        while(!q.isEmpty()) {
+            TreeNode right = null;
+            int size = q.size(); // this is very important we need to get the all nodes on current graph level
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                if (node != null) {
+                    System.out.println(node.val);
+                    right = node;
+                    q.add(node.left);
+                    q.add(node.right);
+                }
+            }
+            if (right != null) {
+                res.add(right.val);
+            }
+        }
+
+        return res;
+    }
+
+    // gready algorithm - brilliant solution I was trying to do it but I failed
+    // https://leetcode.com/problems/jump-game-ii/solutions/18014/concise-o-n-one-loop-java-solution-based-on-greedy/
+    public static int jump(int[] A) {
+        int jumps = 0, curEnd = 0, curFarthest = 0;
+        for (int i = 0; i < A.length - 1; i++) {
+            curFarthest = Math.max(curFarthest, i + A[i]);
+            if (i == curEnd) {
+                jumps++;
+                curEnd = curFarthest;
+            }
+        }
+        return jumps;
+    }
+
+    // brilliant solution
+    // https://leetcode.com/studyplan/top-interview-150/
+    public static void rotate(int[] nums, int k) {
+        k %= nums.length;
+        reverse(nums, 0, nums.length - 1);
+        System.out.println(Arrays.toString(nums));
+        reverse(nums, 0, k - 1);
+        System.out.println(Arrays.toString(nums));
+        reverse(nums, k, nums.length - 1);
+        System.out.println(Arrays.toString(nums));
+
+    }
+
+    public static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    // https://leetcode.com/problems/trapping-rain-water/description/?envType=study-plan-v2&envId=top-interview-150
+    public static int trap(int[] A){
+        int a=0;
+        int b=A.length-1;
+        int max=0;
+        int leftmax=0;
+        int rightmax=0;
+        while(a<=b){
+            leftmax=Math.max(leftmax,A[a]);
+            rightmax=Math.max(rightmax,A[b]);
+            if(leftmax<rightmax){
+                max+=(leftmax-A[a]);       // leftmax is smaller than rightmax, so the (leftmax-A[a]) water can be stored
+                a++;
+            }
+            else{
+                max+=(rightmax-A[b]);
+                b--;
+            }
+        }
+        return max;
     }
 }
 

@@ -1,6 +1,6 @@
 package leetcode.problems.top_interview_150.arrays;
 
-public class BestTimeToBuyAndSellStock121
+public class BestTimeToBuyAndSellStock1
 {
     public int maxProfit(int[] prices) {
 
