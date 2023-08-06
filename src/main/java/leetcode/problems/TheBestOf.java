@@ -394,6 +394,73 @@ public class TheBestOf {
         }
         return max;
     }
+
+    // TODO revise it, super hard to code it from scratch
+    // https://leetcode.com/problems/insert-interval/description/?envType=study-plan-v2&envId=top-interview-150
+    public static  int[][] inserMy(int[][] intervals, int[] newInterval) {
+        int n = intervals.length;
+
+        int[][] newArray = new int[n + 1][2];
+
+        System.arraycopy(intervals, 0, newArray, 0, intervals.length);
+
+        newArray[newArray.length - 1] = newInterval;
+
+        Arrays.sort(newArray, Comparator.comparingInt((int[] row) -> row[0]).thenComparing(row -> row[1]));
+
+        Stack<int[]> st = new Stack();
+
+        st.push(newArray[0]);
+
+        for (int i=1; i < newArray.length; i++) {
+            int[] last = st.pop();
+
+            int left = newArray[i][0];
+            if (last[1] >= left) {
+                int right = newArray[i][1];
+                if (last[1] < right) {
+                    last[1] = right;
+                }
+                st.push(last);
+            } else {
+                st.push(last);
+                st.push(newArray[i]);
+            }
+
+
+        }
+
+        return st.toArray(new int[st.size()][]);
+    }
+
+    // the same problem but the best solution
+    // https://leetcode.com/problems/insert-interval/description/?envType=study-plan-v2&envId=top-interview-150
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> result = new LinkedList<>();
+        int i = 0;
+        int n = intervals.length;
+
+        while (i <n && intervals[i][1] < newInterval[0] ) {
+            result.add(intervals[i]);
+            i++;
+        }
+
+        int start = newInterval[0];
+        int end = newInterval[1];
+
+        while (i <n && intervals[i][0] <= newInterval[1]) {
+            start= Math.min(intervals[i][0], start);
+            end= Math.max(intervals[i][1], end);
+            i++;
+        }
+        result.add(new int[]{start, end});
+
+        while(i <n) {
+            result.add(intervals[i]);
+            i++;
+        }
+        return result.toArray(new int[result.size()][]);
+    }
 }
 
 

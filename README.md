@@ -29,3 +29,11 @@ What else would you add?
 
 
 archit91 - the best explanations on leetcode
+
+
+
+TODO
+Biweekly Contest 110
+
+https://leetcode.com/problems/minimum-seconds-to-equalize-a-circular-array/description/
+https://leetcode.com/problems/minimum-time-to-make-array-sum-at-most-x/
