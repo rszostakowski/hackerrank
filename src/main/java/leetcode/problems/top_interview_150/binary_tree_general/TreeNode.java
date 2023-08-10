@@ -1,4 +1,4 @@
-package leetcode.problems.top_interview_150.graph;
+package leetcode.problems.top_interview_150.binary_tree_general;
 
 public class TreeNode {
     public int val;

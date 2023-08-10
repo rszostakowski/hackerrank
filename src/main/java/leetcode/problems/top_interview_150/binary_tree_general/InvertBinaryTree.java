@@ -1,4 +1,4 @@
-package leetcode.problems.top_interview_150.graph;
+package leetcode.problems.top_interview_150.binary_tree_general;
 
 import java.util.LinkedList;
 import java.util.Queue;

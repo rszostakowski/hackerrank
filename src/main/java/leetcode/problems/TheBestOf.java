@@ -1,7 +1,6 @@
 package leetcode.problems;
 
-import leetcode.problems.list_nodes.AddTwoNumbers2;
-import leetcode.problems.top_interview_150.graph.TreeNode;
+import leetcode.problems.top_interview_150.binary_tree_general.TreeNode;
 import leetcode.problems.top_interview_150.linked_list.ListNode;
 import leetcode.problems.top_interview_150.linked_list.Node;
 

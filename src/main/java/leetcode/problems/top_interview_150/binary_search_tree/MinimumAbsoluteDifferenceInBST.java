@@ -1,6 +1,6 @@
 package leetcode.problems.top_interview_150.binary_search_tree;
 
-import leetcode.problems.top_interview_150.graph.TreeNode;
+import leetcode.problems.top_interview_150.binary_tree_general.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;
