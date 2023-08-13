@@ -527,6 +527,24 @@ public class TheBestOf {
         if(left != null && right != null) return root;
         return left == null ? right : left;
     }
+
+    // extraordinary solution: https://leetcode.com/problems/flatten-binary-tree-to-linked-list/solutions/36977/my-short-post-order-traversal-java-solution-for-share/
+    public static void flattenRec(TreeNode root) {
+        if (root == null) return;
+
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        root.left = null;
+
+        flattenRec(left);
+        flattenRec(right);
+
+        root.right = left;
+        TreeNode cur = root;
+        while (cur.right != null) cur = cur.right;
+        cur.right = right;
+    }
 }
 
 
