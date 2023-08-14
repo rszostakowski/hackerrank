@@ -2,6 +2,8 @@ package leetcode.problems.top_interview_150.binary_search_tree;
 
 import leetcode.problems.top_interview_150.binary_tree_general.TreeNode;
 
+import java.util.Stack;
+
 public class ValidateBinarySearchTree
 {
     public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class ValidateBinarySearchTree
         root.left = left1;
         root.right = right1;
 
-        System.out.println(isValidBST(root));
+        System.out.println(isValidBSTRecursive(root));
     }
 
     public static void main2(String[] args) {
@@ -74,5 +76,54 @@ public class ValidateBinarySearchTree
         }
 
         return  new Result(true, root.val, root.val);
+    }
+
+
+    // best solution from the comments section
+    public static boolean isValidBSTStack(TreeNode root) {
+        if (root == null) return true;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode pre = null;
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            if(pre != null && root.val <= pre.val)
+                return false;
+            pre = root;
+            root = root.right;
+        }
+        return true;
+    }
+    static TreeNode prev;
+    public static boolean isValidBSTRecursive(TreeNode root) {
+        if (root == null)
+            return true;
+
+        if(!isValidBSTRecursive(root.left))
+            return false;
+
+        if (prev != null && prev.val >= root.val)
+            return false;
+
+        prev = root;
+
+        if (!isValidBSTRecursive(root.right))
+            return false;
+
+        return true;
+    }
+
+    // absolutly amzing solution
+    public boolean isValidBSTIntervals(TreeNode root) {
+        return isValidBSTIntervals(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean isValidBSTIntervals(TreeNode root, long minVal, long maxVal) {
+        if (root == null) return true;
+        if (root.val >= maxVal || root.val <= minVal) return false;
+        return isValidBSTIntervals(root.left, minVal, root.val) && isValidBSTIntervals(root.right, root.val, maxVal);
     }
 }

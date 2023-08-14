@@ -545,6 +545,17 @@ public class TheBestOf {
         while (cur.right != null) cur = cur.right;
         cur.right = right;
     }
+
+    // absolutly amzing solution
+    public boolean isValidBSTIntervals(TreeNode root) {
+        return isValidBSTIntervals(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public boolean isValidBSTIntervals(TreeNode root, long minVal, long maxVal) {
+        if (root == null) return true;
+        if (root.val >= maxVal || root.val <= minVal) return false;
+        return isValidBSTIntervals(root.left, minVal, root.val) && isValidBSTIntervals(root.right, root.val, maxVal);
+    }
 }
 
 
