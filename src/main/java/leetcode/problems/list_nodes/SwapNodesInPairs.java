@@ -62,10 +62,10 @@ public class SwapNodesInPairs {
     }
 
     //recursive approach
-    public ListNode swapPairs(ListNode head) {
+    public ListNode swapPairsRec(ListNode head) {
         if ((head == null)||(head.next == null))
             return head;
-        ListNode plus2 = swapPairs(head.next.next);
+        ListNode plus2 = swapPairsRec(head.next.next);
 
         //swap
         ListNode plus1 = head.next;
