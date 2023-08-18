@@ -556,6 +556,28 @@ public class TheBestOf {
         if (root.val >= maxVal || root.val <= minVal) return false;
         return isValidBSTIntervals(root.left, minVal, root.val) && isValidBSTIntervals(root.right, root.val, maxVal);
     }
+
+    //https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/
+    public List<Integer> inorderTraversalIter(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        TreeNode cur = root;
+
+        while (cur != null || !st.empty()) {
+            while(cur!=null) {
+                st.add(cur);
+                cur = cur.left;
+            }
+
+            cur = st.pop();
+            list.add(cur.val);
+            cur = cur.right;
+        }
+
+
+        return list;
+    }
 }
 
 
