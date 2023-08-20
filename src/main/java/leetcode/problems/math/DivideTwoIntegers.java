@@ -3,7 +3,7 @@ package leetcode.problems.math;
 import java.math.BigInteger;
 
 public class DivideTwoIntegers {
-    public int divide(int dividend, int divisor) {
+/*    public int divide(int dividend, int divisor) {
         boolean isBelowZero = true;
         if ((dividend > 0 && divisor > 0)
             || (dividend < 0 && divisor < 0)) {
@@ -38,5 +38,5 @@ public class DivideTwoIntegers {
         if (isBelowZero) {
         return -counter;
     }
-        return counter;
+        return counter;*/
 }

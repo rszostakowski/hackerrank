@@ -41,6 +41,8 @@ public class Matrix01 {
 
             }
         }
+
+        return 0;
     }
 
     private int findClosestInRow(int[][] mat, int i, int j) {
