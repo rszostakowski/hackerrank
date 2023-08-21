@@ -16,65 +16,32 @@ public class NumberOfIslands {
     }
 
     public static int numIslands(char[][] grid) {
-        int m = grid.length;
-        int c = grid[0].length;
+        int rN = grid.length;
+        int cN = grid[0].length;
 
-        List<Set<String>> islands = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < c; j++) {
-                char el = grid[i][j];
-                if (el == '1') {
-                     createIslands(islands, i, j, m, c);
+        int count = 0;
+        for (int i = 0; i < rN; i++) {
+            for (int j = 0; j < cN; j++) {
+                if (grid[i][j]=='1') {
+                    eliminateOtherTiles(grid, i, j, rN, cN);
+                    count++;
                 }
+
             }
         }
-        return islands.size();
+        return count;
     }
 
-    private static void createIslands(List<Set<String>> islands, int rowIdx, int colIdx, int maxRowN, int maxColN) {
-        int size = islands.size();
-
-        List<String> neighbours = getNeighbours(rowIdx, colIdx, maxRowN, maxColN);
-        boolean found = false;
-        for (int i = 0; i < size; i++) {
-            Set<String> island = islands.get(i);
-            for (String neighbour : neighbours) {
-                if (island.contains(neighbour)) {
-                    island.add("" + rowIdx + colIdx);
-                    found = true;
-                    break;
-                }
-            }
+    private static void eliminateOtherTiles(char[][] grid, int i, int j, int rN, int cN) {
+        if (i < 0 || j < 0 || i >= rN || j >= cN)
+            return;
+        if (grid[i][j] == '1') {
+            grid[i][j] = 0;
+            eliminateOtherTiles(grid, i-1, j, rN, cN);
+            eliminateOtherTiles(grid, i+1, j, rN, cN);
+            eliminateOtherTiles(grid, i, j-1, rN, cN);
+            eliminateOtherTiles(grid, i, j+1, rN, cN);
         }
-
-        if (!found) {
-            HashSet<String> newSet = new HashSet<String>();
-            newSet.add("" + rowIdx + colIdx);
-            islands.add(newSet);
-        }
-    }
-
-    private static List<String> getNeighbours(int rowIdx, int colIdx, int maxRowN, int maxColN) {
-        List<String> result = new ArrayList<>();
-        if (rowIdx >=1){
-            int movedRowIdx = rowIdx -1;
-            result.add("" + movedRowIdx + colIdx);
-        }
-
-        if (rowIdx+1 <= maxRowN-1) {
-            int movedRowIdx = rowIdx +1;
-            result.add("" + movedRowIdx + colIdx);
-        }
-        if (colIdx >=1){
-            int movedColIdx = colIdx -1;
-            result.add("" + rowIdx + movedColIdx);
-        }
-
-        if (colIdx+1 <= maxColN-1) {
-            int movedColIdx = colIdx +1;
-            result.add("" + rowIdx + movedColIdx);
-        }
-        return result;
     }
 
 }
