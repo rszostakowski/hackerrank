@@ -4,63 +4,62 @@ import java.util.*;
 
 public class CourseSchedule {
     public static void main(String[] args) {
-        int[][] input = {{1,0}, {0,1}};
+        int[][] input = {{1, 0}, {0, 1}};
         System.out.println(canFinish(2, input));
     }
-    static Map<Node,Node> visited = new HashMap<>();
-    public static boolean canFinish(int numCourses, int[][] prerequisites) {
 
-        for (int[] prerequisite: prerequisites) {
+
+    static Map<Integer, Boolean> alreadyVisited = new HashMap<>();
+    public static boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> nodes = new HashMap<>();
+        for (int[] prerequisite : prerequisites) {
             int course = prerequisite[0];
             int required = prerequisite[1];
 
-            Node node = new Node(course);
-            Node requiriedNode = new Node(required);
-            if (visited.containsKey(node)) {
-                Node stored = visited.get(node);
-                if (visited.containsKey(requiriedNode)) {
-                    Node storedRequired = visited.get(requiriedNode);
-                    stored.neighbors.add(storedRequired);
-                } else {
-                    stored.neighbors.add(requiriedNode);
-                }
+            if (nodes.containsKey(course)) {
+                List<Integer> prerequisities = nodes.get(course);
+                prerequisities.add(required);
             } else {
-                node.neighbors.add(requiriedNode);
-                visited.put(node, node);
-                visited.put(requiriedNode, requiriedNode);
+                ArrayList<Integer> prerquisities = new ArrayList<>();
+                prerquisities.add(required);
+                nodes.put(course, prerquisities);
             }
         }
 
-        return hasCycle(visited.values());
+        return hasCycle(nodes);
     }
 
-    private static boolean hasCycle(Collection<Node> values) {
-        Map<Node, Boolean> alreadyVisited = new HashMap<>();
-        for (Node node: values) {
-            if (alreadyVisited.containsKey(node)) {
-                return true;
-            } else {
-                alreadyVisited.put(node, false);
-                hasCycle(node.neighbors);
+    private static boolean hasCycle(Map<Integer, List<Integer>> nodes) {
+        Set<Integer> visited = new HashSet<>();
+        Set<Integer> onStack = new HashSet<>();
+
+        for (int node : nodes.keySet()) {
+            if (!visited.contains(node)) {
+                if (hasCycleDFS(node, nodes, visited, onStack)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
-}
 
-class Node {
-    public int val;
-    public List<Node> neighbors;
-    public Node() {
-        val = 0;
-        neighbors = new ArrayList<Node>();
-    }
-    public Node(int _val) {
-        val = _val;
-        neighbors = new ArrayList<Node>();
-    }
-    public Node(int _val, ArrayList<Node> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
+    private static boolean hasCycleDFS(int node, Map<Integer, List<Integer>> nodes, Set<Integer> visited, Set<Integer> onStack) {
+        visited.add(node);
+        onStack.add(node);
+
+        List<Integer> neighbours = nodes.getOrDefault(node, new ArrayList<>());
+        for (int neighbor : neighbours) {
+            if (!visited.contains(neighbor)) {
+                if (hasCycleDFS(neighbor, nodes, visited, onStack)) {
+                    return true;
+                }
+            } else if (onStack.contains(neighbor)) {
+                return true;
+            }
+        }
+
+        onStack.remove(node);
+        return false;
     }
 }
