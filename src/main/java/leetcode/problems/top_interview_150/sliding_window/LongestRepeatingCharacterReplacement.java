@@ -85,7 +85,7 @@ public class LongestRepeatingCharacterReplacement {
         return max;
     }
 }
-}
+
 class Result {
     public Result(int otherThanMax, int sumOfValues) {
         this.otherThanMax = otherThanMax;
