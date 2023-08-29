@@ -1,7 +1,5 @@
 package leetcode.problems.binary_search;
 
-import com.sun.tools.javac.util.Pair;
-
 import java.util.*;
 
 //https://leetcode.com/problems/time-based-key-value-store/description/
