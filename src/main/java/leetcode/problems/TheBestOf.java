@@ -578,6 +578,21 @@ public class TheBestOf {
 
         return list;
     }
+
+    static void generateParanthesis(List<String> result, String str, int left, int right, int n) {
+        if (str.length() == n) {
+            result.add(str);
+            return;
+        }
+
+        if (left < n/2) {
+            generateParanthesis(result, str + "(", left + 1, right, n);
+        }
+
+        if (right < left) {
+            generateParanthesis(result, str + ")", left, right +1, n);
+        }
+    }
 }
 
 
