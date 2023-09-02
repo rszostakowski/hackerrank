@@ -16,7 +16,11 @@ public class TopKFrequentElements {
             occur.put(num, occur.getOrDefault(num, 0)+1);
         }
 
-        List<Integer> highestValues = occur.values().stream().sorted(Comparator.reverseOrder()).limit(k).collect(Collectors.toList());
+        List<Integer> highestValues = occur.values()
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .limit(k)
+                .collect(Collectors.toList());
 
         int[] results = new int[k];
         int idx = 0;
