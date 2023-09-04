@@ -1,8 +1,6 @@
 package leetcode.problems.backtracking;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PalindromePartitioning {
@@ -16,16 +14,16 @@ public class PalindromePartitioning {
 
     public static void main(String[] args) {
         PalindromePartitioning pp = new PalindromePartitioning();
-        List<List<String>> aab = pp.partition("aab");
+        List<List<String>> aab = pp.partition("efe");
         System.out.println(aab);
     }
     public List<List<String>> partition(String s) {
-        List<List<String>> result = new LinkedList();
+        Set<List<String>> result = new HashSet<>();
         backtrack(s, result, new LinkedList(), 0);
-        return result;
+        return new ArrayList<>(result);
     }
 
-    private void backtrack(String s, List<List<String>> result, List<String> subset, int index) {
+    private void backtrack(String s, Set<List<String>> result, List<String> subset, int index) {
         // if all elements palindroms
         if (index == s.length() && String.join("", subset).length() == s.length()) {
             result.add(new ArrayList<>(subset));

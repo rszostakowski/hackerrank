@@ -6,6 +6,12 @@ import java.util.*;
 // all backtracing problems are desribed here: https://leetcode.com/problems/subsets/solutions/27281/a-general-approach-to-backtracking-questions-in-java-subsets-permutations-combination-sum-palindrome-partitioning/
 
 public class Subsets {
+
+    public static void main(String[] args) {
+        Subsets subsets = new Subsets();
+        int[] nums = {1,2,3};
+        subsets.subsets(nums);
+    }
     public List<List<Integer>> subsets(int[] nums) {
         Set<List<Integer>> res = new HashSet();
         backtrack(nums, res, new ArrayList<>(), 0);
@@ -17,7 +23,7 @@ public class Subsets {
 
         for (int i = startIndex; i < nums.length; i++) {
             subset.add(nums[i]);
-            //System.out.println(subset);
+            System.out.println(subset);
             backtrack(nums, res, subset, i + 1);
             subset.remove(subset.size() - 1); // this is the important setp in the backtracking problem
         }
