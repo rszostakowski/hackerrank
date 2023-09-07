@@ -23,46 +23,71 @@ public class IntersectionOfTwoLinkedLists {
     }
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        ListNode copiedA = copy(headA);
-        ListNode copiedB = copy(headB);
-        ListNode reversedA = reverse(copiedA);
-        ListNode reversedB = reverse(copiedB);
+        int countA = 0;
+        int countB = 0;
 
-        while(reversedA!=null && reversedB!=null && !reversedB.equals(reversedA)){
-            reversedA = reversedA.next;
-            reversedB = reversedB.next;
-        }
-        return reversedA;
-    }
+        ListNode currentA = headA;
+        ListNode currentB = headB;
 
-    public static ListNode reverse(ListNode head) {
-        ListNode prev = null;
-
-        while(head != null) {
-            ListNode next = new ListNode(head.next.val, head.next);
-            head.next = prev;
-            prev = head;
-            head = next;
+        while (currentA != null) {
+            countA++;
+            currentA = currentA.next;
         }
 
-        return prev;
-    }
-
-    public static ListNode copy(ListNode list){
-        if (list == null)
-            return null;
-
-        ListNode res = new ListNode(list.val);
-        ListNode resTmp = res;
-        ListNode listTmp = list;
-
-        while (listTmp.next != null){
-            listTmp = listTmp.next;
-            resTmp.next = new ListNode(listTmp.val);
-            resTmp = resTmp.next;
+        while (currentB != null) {
+            countB++;
+            currentB = currentB.next;
         }
 
-        return res;
+        currentA = headA;
+        currentB = headB;
+
+        if (countA > countB) {
+            int diff = countA - countB;
+            int idx = 0;
+            while (idx < diff) {
+                currentA = currentA.next;
+                idx++;
+            }
+        } else {
+            int diff = countB - countA;
+            int idx = 0;
+            while (idx < diff) {
+                currentB = currentB.next;
+                idx++;
+            }
+        }
+
+        System.out.println("Should be on the same level A: " + currentA.val + " B " +  currentB.val);
+
+        for (int i = 0; i < 3*100000; i++) {
+            if (currentA == currentB) {
+                return currentA;
+            }
+            currentA = currentA.next;
+            currentB = currentB.next;
+        }
+
+        return null;
     }
 
+
+    // solution without knowing the length of the lists
+    //https://leetcode.com/problems/intersection-of-two-linked-lists/solutions/49785/java-solution-without-knowing-the-difference-in-len/
+    public ListNode getIntersectionNodeBest(ListNode headA, ListNode headB) {
+        //boundary check
+        if(headA == null || headB == null) return null;
+
+        ListNode a = headA;
+        ListNode b = headB;
+
+        //if a & b have different len, then we will stop the loop after second iteration
+        while( a != b){
+            //for the end of first iteration, we just reset the pointer to the head of another linkedlist
+            a = a == null? headB : a.next;
+            b = b == null? headA : b.next;
+        }
+
+        return a;
+    }
 }
