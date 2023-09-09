@@ -5,23 +5,6 @@ import leetcode.problems.top_interview_150.linked_list.ListNode;
 import java.util.List;
 
 public class IntersectionOfTwoLinkedLists {
-    public static void main(String[] args) {
-        ListNode node5 = new ListNode(5);
-        ListNode node4 = new ListNode(4, node5);
-        ListNode node3 = new ListNode(3, node4);
-        ListNode node2 = new ListNode(2, node3);
-        ListNode head = new ListNode(1, node2);
-
-        // Printing the linked list
-
-        ListNode current = copy(head);
-        while (current != null) {
-            System.out.print(current.val + " -> ");
-            current = current.next;
-        }
-        System.out.println("null");
-    }
-
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         int countA = 0;
         int countB = 0;
@@ -74,6 +57,8 @@ public class IntersectionOfTwoLinkedLists {
 
     // solution without knowing the length of the lists
     //https://leetcode.com/problems/intersection-of-two-linked-lists/solutions/49785/java-solution-without-knowing-the-difference-in-len/
+    // 4 different solutions
+
     public ListNode getIntersectionNodeBest(ListNode headA, ListNode headB) {
         //boundary check
         if(headA == null || headB == null) return null;
