@@ -7,7 +7,7 @@ public class RedundantConnection {
     public static void main(String[] args) {
         RedundantConnection redundantConnection = new RedundantConnection();
         int[][] edges = new int[][] {
-                {1,2}, {2,3}, {3,4},{1,4},{1,5}, {6, 1}
+                {9,10},{5,8},{2,6},{1,5},{3,8},{4,9},{8,10},{4,10},{6,8},{7,9}
         };
         redundantConnection.findRedundantConnection2(edges);
     }
@@ -38,7 +38,7 @@ public class RedundantConnection {
         Set<Integer> visited = new HashSet();
         List<int[]> toRemove = new LinkedList();
         for (int[] edge : edges) {
-            if (visited.contains(edge[0]) && visited.contains(edge[1]) && isCycle(edge)) {
+            if (visited.contains(edge[0]) && visited.contains(edge[1])) {
                 toRemove.add(edge);
             }
             visited.add(edge[0]);
