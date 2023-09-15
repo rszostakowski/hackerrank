@@ -22,7 +22,7 @@ public class ReconstructItinerary {
         ri.findItinerary(tickets);
     }
 
-    public static void main23(String[] args) {
+    public static void main55(String[] args) {
 
         ReconstructItinerary ri = new ReconstructItinerary();
         List<String[]> input = Arrays.asList(
@@ -90,7 +90,7 @@ public class ReconstructItinerary {
             RGraphNode toNode = set.getOrDefault(to, new RGraphNode(to));
 
             fromNode.flightsTo.add(toNode);
-            //toNode.flightsFrom.add(fromNode);
+            toNode.flightsFrom.add(fromNode);
             set.put(from, fromNode);
             set.put(to, toNode);
         }
@@ -101,33 +101,45 @@ public class ReconstructItinerary {
         results.add(startingNode.name);
 
         Stack<RGraphNode> st = new Stack<>();
-
-        Queue<RGraphNode> tempPq = new PriorityQueue<>(nodeComparator);
-        tempPq.addAll(startingNode.flightsTo);
-        while (!tempPq.isEmpty()) {
-            st.add(tempPq.poll());
-        }
-        startingNode.flightsTo = null;
+        st.add(startingNode.getTopFlightTo());
 
         while (!st.isEmpty()) {
             RGraphNode node = st.pop();
             results.add(node.name);
             System.out.println("Visited: "+ node.name);
-            if (node.flightsTo != null) {
-                Queue<RGraphNode> tempPq1 = new PriorityQueue<>(nodeComparator);
-                tempPq1.addAll(node.flightsTo);
-                while (!tempPq1.isEmpty()) {
-                    st.add(tempPq1.poll());
-                }
-                node.flightsTo = null;
+            if (node.flightsTo != null && node.flightsTo.size() != 0) {
+                st.add(node.getTopFlightTo());
             }
         }
 
         return results;
     }
 
+
+}
+
+class RGraphNode {
+    String name;
+
+    public List<RGraphNode> flightsTo;
+    public List<RGraphNode> flightsFrom;
+
+    RGraphNode(String name) {
+        this.name = name;
+        flightsTo = new LinkedList<>();
+        flightsFrom = new LinkedList<>();
+    }
+
+    public RGraphNode getTopFlightTo() {
+        PriorityQueue<RGraphNode> pq = new PriorityQueue<>(nodeComparator);
+        pq.addAll(flightsTo);
+        RGraphNode node = pq.poll();
+        flightsTo.remove(node);
+        return node;
+    }
+
     Comparator<RGraphNode> nodeComparator = (node1, node2) -> {
-/*        // Check for null values
+        // Check for null values
         if (node1.flightsTo == null && node2.flightsTo == null) {
             return 0;
         } else if (node1.flightsTo == null) {
@@ -135,28 +147,52 @@ public class ReconstructItinerary {
         } else if (node2.flightsTo == null) {
             return 1; // node2 is null, move it before node1
         }
-        // Compare based on flightsTo size (ascending)
-        if (node2.flightsTo.size() != 0  && node1.flightsTo.size() !=0) {*/
-            return node2.name.compareTo(node1.name);
-        //}
-//        if (node1.flightsTo.size() != 0) {
-//            return -1;
-//        }
-//        if (node2.flightsTo.size() != 0) {
-//            return 1;
-//        }
 
-        //return 0;
+        // Compare based on flightsTo size (ascending)
+        if (node2.flightsTo.size() != 0  && node1.flightsTo.size() !=0) {
+            return node1.name.compareTo(node2.name);
+        }
+        if (node1.flightsTo.size() != 0) {
+            return -1;
+        }
+        if (node2.flightsTo.size() != 0) {
+            return 1;
+        }
+
+        return 0;
     };
 }
 
-class RGraphNode {
-    String name;
 
-    public List<RGraphNode> flightsTo = new LinkedList<>();
 
-    RGraphNode(String name) {
-        this.name = name;
-    }
-}
+/*
+EZE
+TIA
+HBA
+AXA
+JFK
+ANU
+ADL
+AUA
+EZE TIA
+EZE HBA
+AXA TIA
+JFK AXA
+ANU JFK
+ADL ANU
+TIA AUA
+ANU AUA
+ADL EZE
+ADL EZE
+EZE ADL
+AXA EZE
+AUA AXA
+JFK AXA
+AXA AUA
+AUA ADL
+ANU EZE
+TIA ADL
+EZE ANU
+AUA ANU
+ */
 
