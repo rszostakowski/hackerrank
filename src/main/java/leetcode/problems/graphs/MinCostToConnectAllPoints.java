@@ -4,7 +4,9 @@ import java.util.*;
 
 public class MinCostToConnectAllPoints
 {
-    public static void main2(String[] args) {
+
+    //https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/
+    public static void main(String[] args) {
         List<List<Integer>> input = Arrays.asList(
                 Arrays.asList(0, 0),
                 Arrays.asList(2, 2),
@@ -20,7 +22,7 @@ public class MinCostToConnectAllPoints
         minCostConnectPoints(result);
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         List<List<Integer>> input = Arrays.asList(
                 Arrays.asList(0, 0),
                 Arrays.asList(1, 1),
@@ -36,10 +38,10 @@ public class MinCostToConnectAllPoints
     }
     //[[0,0],[1,1],[1,0],[-1,1]]
     public static int minCostConnectPoints(int[][] points) {
-        Map<Integer, Map<Integer, Integer>> map = new HashMap();
         int n = points.length;
+        Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            for (int j = i+1; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 int[] point1 = points[i];
                 int[] point2 = points[j];
 
@@ -56,63 +58,50 @@ public class MinCostToConnectAllPoints
         int counter = 0;
         int numOfNodes = 0;
 
-        boolean[] visited = new boolean[n];
-        visited[0] = true;
+        Set<Integer> visited = new HashSet<>();
+        visited.add(0);
 
-        // the idea is always consider all connected points and from all of them find the one not connected
-        while(numOfNodes < n-1) {
-            int minClosestDist = Integer.MAX_VALUE;
-            int secondPointIdx = 0;
-            int firstPointIdx = 0;
+        PriorityQueue<Edge> minHeap = new PriorityQueue<>(Comparator.comparingInt(e -> e.distance));
+        if (map.size() != 0) {
+            for (int nextPoint : map.get(0).keySet()) {
+                minHeap.offer(new Edge(0, nextPoint, map.get(0).get(nextPoint)));
+            }
 
-            for (int i = 0; i < n;i++) {
-                if (visited[i]) {
-                    Map<Integer, Integer> distances = map.get(i);
-                        for (Integer pointIdx :distances.keySet()) {
-                            if (!visited[pointIdx]) {
-                                Integer dist = distances.get(pointIdx);
-                                if (minClosestDist > dist) {
-                                    minClosestDist = dist;
-                                    secondPointIdx = pointIdx;
-                                    firstPointIdx = i;
-                                }
-                            }
+            while (numOfNodes < n - 1) {
+                Edge edge = minHeap.poll();
+                int nextPoint = edge.point2;
+
+                if (!visited.contains(nextPoint)) {
+                    counter += edge.distance;
+                    visited.add(nextPoint);
+                    numOfNodes++;
+
+                    for (int adjacentPoint : map.get(nextPoint).keySet()) {
+                        if (!visited.contains(adjacentPoint)) {
+                            // always add the next possible closest point
+                            minHeap.offer(new Edge(nextPoint, adjacentPoint, map.get(nextPoint).get(adjacentPoint)));
                         }
+                    }
                 }
             }
-            counter += minClosestDist;
-            removeConnection(visited, map, firstPointIdx, secondPointIdx);
-            visited[secondPointIdx] = true;
-
-            System.out.println("Connecting " + firstPointIdx + " with " + secondPointIdx +" dist: " + minClosestDist);
-            numOfNodes++;
         }
 
-        System.out.println("counter: " + counter);
         return counter;
     }
 
-    private static void removeConnection(
-            boolean[] visited,
-            Map<Integer, Map<Integer, Integer>> closestDist,
-            int firstPointIdx,
-            int secondPointIdx) {
+    private static class Edge {
+        int point1;
+        int point2;
+        int distance;
 
-        Map<Integer, Integer> dists1 = closestDist.get(firstPointIdx);
-        dists1.remove(secondPointIdx);
-
-        Map<Integer, Integer> dists2 = closestDist.get(secondPointIdx);
-        dists2.remove(firstPointIdx);
-
-        for (int i = 0; i < visited.length; i++) {
-            if (visited[i]) {
-                Map<Integer, Integer> visitedDists = closestDist.get(i);
-                visitedDists.remove(secondPointIdx);
-            }
+        public Edge(int point1, int point2, int distance) {
+            this.point1 = point1;
+            this.point2 = point2;
+            this.distance = distance;
         }
     }
 
     static int dist(int[] first, int[] second) {
-        return Math.abs(first[0]-second[0]) + Math.abs(first[1]-second[1]);
+        return Math.abs(first[0] - second[0]) + Math.abs(first[1] - second[1]);
     }
 }
