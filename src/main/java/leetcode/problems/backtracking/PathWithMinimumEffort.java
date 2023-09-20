@@ -2,6 +2,7 @@ package leetcode.problems.backtracking;
 
 import java.util.*;
 
+//https://leetcode.com/problems/path-with-minimum-effort/solutions/
 public class PathWithMinimumEffort
 {
 
@@ -134,17 +135,6 @@ public class PathWithMinimumEffort
                 }
             }
         }
-/*
-        heights = new int[][] {
-                {8,6,8,1,4,1},
-                {10,3,1,8,9,10},
-                {1,5,6,9,8,5},
-                {10,4,6,7,3,3},
-                {6,6,9,1,3,3},
-                {3,1,10,3,4,1},
-                {6,1,6,10,7,10}
-        };
- */
         return -1;
     }
 
