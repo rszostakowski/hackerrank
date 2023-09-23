@@ -25,4 +25,23 @@ public class SumOfLeftLeaves {
 
             return sum;
         }
+
+
+        // can also be solved recursivly
+    public int sumOfLeftLeaves_recur(TreeNode root) {
+        return sumOfLeftLeaves(root, false);
+    }
+
+    public int sumOfLeftLeaves(TreeNode root, boolean isLeft) {
+        int ans = 0;
+        if (root == null) {
+            return 0;
+        }
+
+        if (isLeft && root.left == null && root.right == null) {
+            return root.val;
+        }
+
+        return ans + sumOfLeftLeaves(root.left, true) + sumOfLeftLeaves(root.right, false);
+    }
 }
