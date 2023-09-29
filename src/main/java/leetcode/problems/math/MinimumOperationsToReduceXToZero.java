@@ -3,7 +3,7 @@ package leetcode.problems.math;
 import java.util.*;
 
 public class MinimumOperationsToReduceXToZero {
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
        int[] nums = {1,1,4,2,3};
        int x = 5;
 
@@ -32,10 +32,10 @@ public class MinimumOperationsToReduceXToZero {
                 System.out.println(subset);
                 subset.add(nums[i]);
                 //System.out.println(subset);
-                backtrack(candidates, res, target, subset, i);
+                backtrack(nums, res, target, subset, i);
                 subset.remove(subset.size() - 1);
                 System.out.println(subset);
 
         }
-    }
+    }*/
 }
