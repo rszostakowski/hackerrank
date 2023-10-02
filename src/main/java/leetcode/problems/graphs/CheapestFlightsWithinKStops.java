@@ -20,14 +20,14 @@ public class CheapestFlightsWithinKStops {
     }
 
     public void backtrack(Map<Integer, List<Flight>> map, Set<Integer> res, List<Integer> subset, int startIndex) {
-        res.add(new ArrayList<>(subset));
+   /*     res.add(new ArrayList<>(subset));
 
         for (int i = startIndex; i < nums.length; i++) {
             subset.add(nums[i]);
             System.out.println(subset);
             backtrack(nums, res, subset, i + 1);
             subset.remove(subset.size() - 1);
-        }
+        }*/
     }
 
     class Flight {
