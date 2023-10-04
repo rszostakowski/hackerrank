@@ -28,49 +28,72 @@ public class CheapestFlightsWithinKStops {
             int price = flight[2];
 
             List<Flight> fromNode = map.getOrDefault(from, new LinkedList<>());
-            fromNode.add(new Flight(from, to, price));
-            map.put(to, fromNode);
+            fromNode.add(new Flight(to, price));
+            map.put(from, fromNode);
         }
         HashSet<Integer> res = new HashSet<>();
-        backtrack(map, res, new HashSet<Integer>(), src, dst, k);
+        List<Flight> path = new LinkedList<>();
+        path.add(new Flight(src, 0));
+        backtrack(map, res, path, src, dst, k);
         return res.stream().mapToInt(e -> e).min().orElse(-1);
     }
 
     public void backtrack(Map<Integer, List<Flight>> map,
                           Set<Integer> res,
-                          Set<Integer> subset,
+                          List<Flight> path,
                           int node,
                           int dest,
                           int k) {
         if (node == dest){
-            res.add(subset.stream().mapToInt(e-> e).sum());
+            res.add(path.stream().map(fl -> fl.price).mapToInt(e-> e).sum());
             return;
         }
 
-        if (subset.size() > k) {
+        if (path.size() > k+1) {
             return;
         }
 
         List<Flight> flights = map.getOrDefault(node, new LinkedList<>());
         for (Flight fl: flights) {
-            if (!subset.contains(fl.to) && subset.size() <= 2) {
-                subset.add(fl.price);
-                System.out.println(subset);
-                backtrack(map, res, subset, fl.to, dest, k);
-                subset.remove(subset.size() - 1);
+            if (!path.contains(fl) && path.size() <= k+1) {
+                path.add(fl);
+                System.out.println(path);
+                backtrack(map, res, path, fl.node, dest, k);
+                path.remove(path.size() - 1);
             }
         }
     }
 
     class Flight {
-        int from;
-        int to;
+        int node;
         int price;
 
-        public Flight(int from, int to, int price) {
-            this.from = from;
-            this.to = to;
+        public Flight(int to, int price) {
+            this.node = to;
             this.price = price;
+        }
+
+        @Override
+        public String toString() {
+            return "Flight{" +
+                    "node=" + node +
+                    ", price=" + price +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Flight flight = (Flight) o;
+
+            return node == flight.node;
+        }
+
+        @Override
+        public int hashCode() {
+            return node;
         }
     }
 }
