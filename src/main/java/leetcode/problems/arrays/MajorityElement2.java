@@ -12,7 +12,6 @@ public class MajorityElement2 {
         me.majorityElement(nums);
     }
     public List<Integer> majorityElement(int[] nums) {
-        public List<Integer> majorityElement ( int[] nums){
             int n = nums.length;
             List<Integer> res = new LinkedList();
             if (n == 1) {
@@ -48,4 +47,4 @@ public class MajorityElement2 {
             return res;
         }
     }
-}
+
