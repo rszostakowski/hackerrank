@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LongestPalindrome {
+    // dp solution : https://leetcode.com/problems/palindromic-substrings/solutions/105707/java-python-dp-solution-based-on-longest-palindromic-substring/
     public int longestPalindrome(String s) {
         char[] chars = s.toCharArray();
         Map<Character, Integer> map = new HashMap();

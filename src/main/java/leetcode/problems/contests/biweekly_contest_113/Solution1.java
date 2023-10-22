@@ -42,7 +42,7 @@ public class Solution1 {
             array[i] = nums.get(i);
         }
 
-        int[] copied = Arrays.copyOf(array, n);
+        int[] copied = `Arrays.copyOf(`array, n);
         Arrays.sort(copied);
 
         rotate(array, shifts);
