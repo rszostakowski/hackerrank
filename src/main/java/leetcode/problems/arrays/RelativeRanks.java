@@ -1,5 +1,9 @@
 package leetcode.problems.arrays;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class RelativeRanks {
     public String[] findRelativeRanks(int[] score) {
         int n = score.length;
