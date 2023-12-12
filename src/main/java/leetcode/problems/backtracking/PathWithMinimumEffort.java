@@ -29,7 +29,7 @@ public class PathWithMinimumEffort
                 {6,1,6,10,7,10}
         };
 
-        System.out.println(path.minimumEffortPath(heights));
+        System.out.println(path.minimumEffortPath_notFastEnough(heights));
     }
 
 
